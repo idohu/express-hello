@@ -2,6 +2,12 @@
 
 Just a stupid express.js hello world sample I'm using for testing server installations
 
+# Running on minikube
+```sh
+kubectl run hello-express --image=joerx/express-hello-src --port=3000
+expose deployment hello-express --type=NodePort
+```
+
 # Running with Docker
 
 ```sh
