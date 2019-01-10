@@ -1,11 +1,12 @@
 var express = require('express');
 var morgan = require('morgan');
 var format = require('util').format;
+var path = require('path');
 
 var app = module.exports = express();
 app.use(morgan('combined'));
 
-app.get('/', function(req, res) {
+app.get('/json', function(req, res) {
   res.status(200).json({
     msg: format('Hello from %s!', req.hostname)
   });
@@ -16,7 +17,11 @@ app.get('/headers', function(req, res) {
 });
 
 app.get('/fail', function(req, res, next) {
-  next(new Error('booh!'));
+  res.status(401).json({msg: "Not Authorized"});
+});
+
+app.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.use(function(err, req, res, next) {
